@@ -11,7 +11,7 @@ namespace User.Microservice.Controllers
     {
 
         public UserController(ApplicationDbContext context,
-            PetTrackerContext db, UserManager<ApplicationUser> userManager):base(context, db, userManager)
+            PetsdbContext db, UserManager<ApplicationUser> userManager):base(context, db, userManager)
         {
             
         }

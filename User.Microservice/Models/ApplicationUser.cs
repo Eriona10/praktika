@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace User.Microservice.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
 
         [StringLength(100)]
