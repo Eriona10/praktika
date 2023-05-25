@@ -16,7 +16,7 @@ namespace User.Microservice.Controllers
         public RoleManager<IdentityRole> _roleManager;
        // public RoleManager<ApplicationRole> _roleManager;
        //rivate IFunctionRepository _functionRepository;
-        public AuthorizationController(ApplicationDbContext context, PetTrackerContext db,
+        public AuthorizationController(ApplicationDbContext context, PetsdbContext db,
              RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager) : base(context,db, userManager)
         {
             _roleManager = roleManager;

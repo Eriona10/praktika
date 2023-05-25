@@ -15,7 +15,7 @@ namespace User.Microservice.Controllers
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ApplicationDbContext context,
-         PetTrackerContext db,
+         PetsdbContext db,
          UserManager<ApplicationUser> userManager,ILogger<HomeController> logger) : base(context, db, userManager)
         {
             _logger = logger;
