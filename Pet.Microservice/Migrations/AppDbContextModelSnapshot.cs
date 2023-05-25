@@ -9,7 +9,7 @@ using Pet.Microservice;
 
 namespace Pet.Microservice.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(PetDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

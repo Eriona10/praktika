@@ -6,11 +6,11 @@ namespace Pet.Microservice.Controllers
 {
     public class PetController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly PetDbContext _context;
         private readonly IPetService _petService;
 
 
-        public PetController(AppDbContext context, IPetService petService)
+        public PetController(PetDbContext context, IPetService petService)
         {
             _context = context;
             _petService = petService;

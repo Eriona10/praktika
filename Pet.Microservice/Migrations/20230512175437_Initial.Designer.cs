@@ -10,7 +10,7 @@ using Pet.Microservice;
 
 namespace Pet.Microservice.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(PetDbContext))]
     [Migration("20230512175437_Initial")]
     partial class Initial
     {

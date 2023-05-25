@@ -8,9 +8,9 @@ namespace Pet.Microservice.Services
     public class PetService : IPetService
     {
 
-            private readonly AppDbContext _context;
+            private readonly PetDbContext _context;
 
-            public PetService(AppDbContext context)
+            public PetService(PetDbContext context)
             {
                 _context = context;
             }
