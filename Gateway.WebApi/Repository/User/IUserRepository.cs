@@ -1,17 +1,25 @@
-﻿//using Gateway.WebApi.Data.Entieties;
+﻿using Gateway.WebApi.Data.Entieties;
+using Gateway.WebApi.Helpers;
+using Microsoft.AspNetCore.Identity;
 
-//namespace Gateway.WebApi.Repository.User
-//{
-//    public interface IUserRepository
-//    {
-//        Task SaveChanges();
 
-//        Task<AspNetUsers> GetUserById(int id);
+namespace Gateway.WebApi.Repository.User
+{
+    public interface IUserRepository
+    {
+        //Task SaveChanges();
 
-//        Task<IEnumerable<AspNetUsers>> GetAllUser();
+        //Task<AspNetUsers> GetUserById(int id);
 
-//        Task CreateUser(AspNetUsers user);
+        //Task<IEnumerable<AspNetUsers>> GetAllUser();
 
-//        Task DeleteUser(AspNetUsers user);
-//    }
-//}
+        //Task CreateUser(AspNetUsers user);
+
+        //Task DeleteUser(AspNetUsers user);
+
+        Task<IdentityResult> SignUpAsync(Register model);
+        Task<string> LoginAsync(Login model);
+
+        Task SaveChanges();
+    }
+}
