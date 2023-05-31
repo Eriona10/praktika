@@ -43,6 +43,8 @@ public partial class AspNetUsers
 
     public string? RoleId { get; set; }
 
+    public string? Password { get; set; }
+
     public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; } = new List<AspNetUserClaims>();
 
     public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; } = new List<AspNetUserLogins>();

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Pet.Models;
+﻿using Location.Microservice.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Pet.Controllers
+namespace Location.Microservice.Controllers
 {
     public class HomeController : Controller
     {

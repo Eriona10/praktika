@@ -27,9 +27,21 @@ public partial class PetTrackerContext : DbContext
 
     public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
 
+    public virtual DbSet<BloodPressure> BloodPressure { get; set; }
+
+    public virtual DbSet<Location> Location { get; set; }
+
+    public virtual DbSet<Menu> Menu { get; set; }
+
+    public virtual DbSet<Pet> Pet { get; set; }
+
+    public virtual DbSet<Submenu> Submenu { get; set; }
+
+    public virtual DbSet<Temperature> Temperature { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-Q37P8TE\\SQLEXPRESS;Database=PetTracker;user id=Eriona;password=123456;MultipleActiveResultSets=true;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-Q37P8TE\\SQLEXPRESS;Database=PetTracker;user=eriona;password=123456;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -109,6 +121,119 @@ public partial class PetTrackerContext : DbContext
                         j.HasKey("UserId", "RoleId");
                         j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
                     });
+        });
+
+        modelBuilder.Entity<BloodPressure>(entity =>
+        {
+            entity.Property(e => e.DateMeasured).HasColumnType("datetime");
+            entity.Property(e => e.DiastolicValue).HasMaxLength(50);
+            entity.Property(e => e.SystolicValue).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Location>(entity =>
+        {
+            entity.Property(e => e.DataMeaured).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<Menu>(entity =>
+        {
+            entity.Property(e => e.Action)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Area)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Claim)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.ClaimType)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Controller)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Icon)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.InsertedDate).HasColumnType("datetime");
+            entity.Property(e => e.InsertedFrom)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Roles)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.StaysOpenFor)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedFrom)
+                .HasMaxLength(50)
+                .IsFixedLength();
+        });
+
+        modelBuilder.Entity<Pet>(entity =>
+        {
+            entity.Property(e => e.AnimalType).HasMaxLength(50);
+            entity.Property(e => e.Birthday).HasColumnType("datetime");
+            entity.Property(e => e.Breed).HasMaxLength(50);
+            entity.Property(e => e.Gender).HasMaxLength(50);
+            entity.Property(e => e.Height).HasMaxLength(50);
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.UserId).HasMaxLength(450);
+            entity.Property(e => e.Weight).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Submenu>(entity =>
+        {
+            entity.Property(e => e.Action)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Area)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Claim)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.ClaimType)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Controller)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Icon)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.InsertedDate).HasColumnType("datetime");
+            entity.Property(e => e.InsertedFrom)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.ParentSubId)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Roles)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.StaysOpenFor)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedFrom)
+                .HasMaxLength(50)
+                .IsFixedLength();
+        });
+
+        modelBuilder.Entity<Temperature>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.DataMeasured).HasColumnType("datetime");
+            entity.Property(e => e.Pet).ValueGeneratedOnAdd();
+            entity.Property(e => e.Temperature1).HasColumnName("Temperature");
         });
 
         OnModelCreatingPartial(modelBuilder);

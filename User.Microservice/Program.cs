@@ -1,4 +1,3 @@
-using Fluent.Infrastructure.FluentModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using User.Microservice.Data;
@@ -12,18 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-//builder.Services.AddDbContext<PetTrackerContext>(options =>
-//    options.UseSqlServer(connectionString));
-builder.Services.AddDbContext<PetsdbContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<PetTrackerContext>(options =>
+   options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<User.Microservice.Models.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()  
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFunctionRepository, FunctionRepository>();
-var app = builder.Build();  
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

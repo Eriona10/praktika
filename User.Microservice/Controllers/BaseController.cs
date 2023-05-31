@@ -13,13 +13,13 @@ namespace User.Microservice.Controllers
     {
         public readonly ApplicationDbContext _context;
         // public readonly PetTrackerContext _db;
-        public readonly PetsdbContext _db;
+        public readonly PetTrackerContext _db;
         public readonly UserManager<ApplicationUser> _userManager;
 
         protected ApplicationUser user = new ApplicationUser();
                 
         public BaseController(ApplicationDbContext context,
-            PetsdbContext db, UserManager<ApplicationUser> userManager)
+            PetTrackerContext db, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _db = db;

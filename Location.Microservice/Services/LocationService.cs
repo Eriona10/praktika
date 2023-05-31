@@ -1,33 +1,31 @@
-﻿
-
+﻿using Location.Microservice.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Pet.Data.Entieties;
-using Pet.Interfaces;
-using Pet.ViewModels;
+using Location.Microservice.Interfaces;
+using Location.Microservice.Data.Entieties;
 
-namespace Pet.Services
+namespace Location.Microservice.Services
 {
-    public class LocationService : ILocationService
+    public class LocationService : ILocationServices
     {
-        private readonly PawTrackerContext _context;
+        private readonly PetTrackerContext _context;
 
-        public LocationService(PawTrackerContext context)
+        public LocationService(PetTrackerContext context)
         {
             _context = context;
         }
 
-        public void AddLocation(Location locacion)
+        public void AddLocation(Locations locacion)
         {
-            var _locacion = new Location()
+            var _locacion = new Locations()
             {
 
                 Lat = locacion.Lat,
                 Long = locacion.Long,
-                DateMeasured = locacion.DateMeasured,
-                PetId= locacion.PetId
+              
+                PetId = locacion.PetId
             };
 
-            _context.Location.Add(_locacion);
+            _context.Locations.Add(_locacion);
             _context.SaveChanges();
         }
 
@@ -41,32 +39,33 @@ namespace Pet.Services
             }
         }
 
-        public List<Location> GetAll()
+        public List<Locations> GetAll()
         {
-                return _context.Location.ToList();
-            
+            return _context.Locations.ToList();
+
         }
 
-        public Location LocationById(int Id)
+        public Locations LocationById(int Id)
         {
-            return _context.Location.Find(Id);
+            return _context.Locations.Find(Id);
         }
 
-        public Location UpdateLocation(int Id, LocationVM pet)
+        public Locations UpdateLocation(int Id, LocationVm pet)
         {
-            var existingLocation = _context.Location.Find(Id);
+            var existingLocation = _context.Locations.Find(Id);
             if (existingLocation != null)
             {
                 existingLocation.Lat = pet.Lat;
                 existingLocation.Long = pet.Long;
-                existingLocation.DateMeasured = pet.DateMeasured;
-                existingLocation.PetId =pet.PetId;
-                
+               
+                existingLocation.PetId = pet.PetId;
+
 
                 _context.SaveChanges();
             }
 
             return existingLocation;
         }
-    }
+
+         }
 }

@@ -1,27 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Location.Microservice.Data.Entieties;
+using Location.Microservice.Interfaces;
+using Location.Microservice.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Pet.Data.Entieties;
-using Pet.Interfaces;
-using Pet.ViewModels;
 
-namespace Pet.Controllers
+
+namespace Location.Microservice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class LocationController : Controller
     {
-        private readonly PawTrackerContext _context;
-        private readonly ILocationService _locationService;
+        private readonly PetTrackerContext _context;
+        private readonly ILocationServices _locationService;
 
 
-        public LocationController(PawTrackerContext context, ILocationService locationService)
+        public LocationController(PetTrackerContext context, ILocationServices locationService)
         {
             _context = context;
             _locationService = locationService;
         }
 
         [HttpPost("add-location")]
-        public IActionResult AddLocation([FromBody] Location location)
+        public IActionResult AddLocation([FromBody] Locations location)
         {
             _locationService.AddLocation(location);
             return Ok("Kafsha u regjistru");
@@ -50,7 +51,7 @@ namespace Pet.Controllers
         }
 
         [HttpPut("update-by-id/{Id}")]
-        public IActionResult UpdatePet(int Id, [FromBody] LocationVM location)
+        public IActionResult UpdatePet(int Id, [FromBody] LocationVm location)
         {
             var updatedPet = _locationService.UpdateLocation(Id, location);
             return Ok(updatedPet);
@@ -65,3 +66,4 @@ namespace Pet.Controllers
         }
     }
 }
+

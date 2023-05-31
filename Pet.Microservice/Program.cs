@@ -1,4 +1,3 @@
-using Fluent.Infrastructure.FluentModel;
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using Pet.Microservice;

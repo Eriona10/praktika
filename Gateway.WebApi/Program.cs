@@ -1,28 +1,33 @@
-using AutoMapper;
+global using Gateway.WebApi.Data;
+global using Microsoft.EntityFrameworkCore;
 using FluentAssertions.Common;
 using Gateway.WebApi.Data.Entieties;
-
-
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Validations;
+using Gateway.WebApi.Repository.User;
+using Microsoft.AspNetCore.Identity;
 using Ocelot.Values;
+using User.Microservice.Data;
+using User.Microservice.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 
+builder.Services.AddControllers();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<PetTrackerContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<ApplicationRole>()
+  .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var sqlConBuilder = new SqlConnectionStringBuilder();
-sqlConBuilder.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<PetTrackerContext>(opt => opt.UseSqlServer(sqlConBuilder.ConnectionString));
-
-/*builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies())*/;
 
 var app = builder.Build();
 
@@ -35,12 +40,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapGet("api/v1/user", async (IUserRepository repo, IMapper mapper) =>
-//{
-//    var users = await repo.GetAllUser();
+app.UseAuthorization();
 
-//    return Results.Ok(mapper.Map<IEnumerable<UserReadDto>>(users));
-//});
-
+app.MapControllers();
 
 app.Run();

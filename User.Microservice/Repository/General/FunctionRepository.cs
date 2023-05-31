@@ -10,9 +10,9 @@ namespace User.Microservice.Repository.General
     public class FunctionRepository : IFunctionRepository
     {
 
-        private PetsdbContext _db;
+        private PetTrackerContext _db;
 
-        public FunctionRepository(PetsdbContext db)
+        public FunctionRepository(PetTrackerContext db)
         {
             _db = db;
         }
