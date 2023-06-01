@@ -1,6 +1,6 @@
-﻿@*@{
+﻿@{
     var user = (UserModel)ViewData["User"];
-}*@
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +47,7 @@
                         <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-bs-toggle="dropdown" href="#" role="button"
                            aria-haspopup="false" aria-expanded="false">
                             <span class="ms-1 nav-user-name hidden-sm"></span>
+                                <span class="ms-1 nav-user-name hidden-sm">@user.FirstName @user.LastName</span>
                             <img src="~/images/users/user-5.jpg" alt="profile-user" class="rounded-circle thumb-xs" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
@@ -84,10 +85,51 @@
     }
     else
     {
-        <h1>Hi</h1>
-        @RenderBody()
-    
-    }
+         <div class="topbar">
+                    <!-- Navbar -->
+                    <nav class="navbar-custom">
+                        <ul class="list-unstyled topbar-nav float-end mb-0">
+                            
+                            @*  <li class="nav-link">
+                        <a class="nav-link text-darl" asp-controller="Authorization" asp-action="Index">Role </a>
+                        </li>
+                        <li class="nav-link">
+                        <a class="nav-link text-darl" asp-controller="Pet" asp-action="Index">Pet </a>
+                        </li>*@
+                           
+
+                            <li class="dropdown">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                    <span class="ms-1 nav-user-name hidden-sm"></span>
+                            <span class="ms-1 nav-user-name hidden-sm">@user.FirstName @user.LastName</span>
+                                    <img src="~/images/users/user-5.jpg" alt="profile-user" class="rounded-circle thumb-xs" />
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#"><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
+                                    <a class="dropdown-item" href="#"><i data-feather="settings" class="align-self-center icon-xs icon-dual me-1"></i> Settings</a>
+                                    <div class="dropdown-divider mb-0"></div>
+
+                                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index","Home")" method="post">
+                                        <button type="submit" class="dropdown-item"><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i>Logout</button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul><!--end topbar-nav-->
+
+                        <ul class="list-unstyled topbar-nav mb-0">
+                            <li class="creat-btn">
+                                <div class="nav-link">
+                                    <a class=" btn btn-sm btn-soft-primary" href="#" role="button"><i class="fas fa-plus me-2"></i>New Task</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+            <!-- end navbar--> <h4 class="page-title">@ViewData["Title"]</h4>
+                </div>
+               
+                @RenderBody()
+            }
 
 
     <!-- jQuery  -->
