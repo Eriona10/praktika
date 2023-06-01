@@ -1,10 +1,9 @@
-using FluentAssertions.Common;
+
 using Microsoft.EntityFrameworkCore;
 using Pet.Microservice;
 using Pet.Microservice.Interfaces;
 using Pet.Microservice.Services;
-using User.Microservice.Data.Entieties;
-using User.Microservice.Repository.General;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

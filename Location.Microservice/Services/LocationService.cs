@@ -21,7 +21,7 @@ namespace Location.Microservice.Services
 
                 Lat = locacion.Lat,
                 Long = locacion.Long,
-              
+                DataMeaured = locacion.DataMeaured,
                 PetId = locacion.PetId
             };
 
@@ -57,7 +57,7 @@ namespace Location.Microservice.Services
             {
                 existingLocation.Lat = pet.Lat;
                 existingLocation.Long = pet.Long;
-               
+                existingLocation.DataMeaured = pet.DateMeasured;
                 existingLocation.PetId = pet.PetId;
 
 

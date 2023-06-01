@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace User.Microservice.Data.Entieties;
 
-public partial class PetTrackerContext : DbContext
+public partial class PawTrackerdbContext : DbContext
 {
-    public PetTrackerContext()
+    public PawTrackerdbContext()
     {
     }
 
-    public PetTrackerContext(DbContextOptions<PetTrackerContext> options)
+    public PawTrackerdbContext(DbContextOptions<PawTrackerdbContext> options)
         : base(options)
     {
     }
@@ -31,9 +31,11 @@ public partial class PetTrackerContext : DbContext
 
     public virtual DbSet<Submenu> Submenu { get; set; }
 
+    public virtual DbSet<Temperature> Temperature { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-M7IKIA2\\MSSQLSERVER01;Database=PawTrackerdb;user id=db;password=database;MultipleActiveResultSets=true;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-M7IKIA2\\MSSQLSERVER01;Database=PawTrackerdb;user=db;password=database;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -139,7 +141,9 @@ public partial class PetTrackerContext : DbContext
             entity.Property(e => e.InsertedFrom)
                 .HasMaxLength(50)
                 .IsFixedLength();
-           
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsFixedLength();
             entity.Property(e => e.Roles)
                 .HasMaxLength(50)
                 .IsFixedLength();
@@ -192,6 +196,14 @@ public partial class PetTrackerContext : DbContext
             entity.Property(e => e.UpdatedFrom)
                 .HasMaxLength(50)
                 .IsFixedLength();
+        });
+
+        modelBuilder.Entity<Temperature>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.Property(e => e.DataMeasured).HasColumnType("datetime");
+            entity.Property(e => e.Temperature1).HasColumnName("Temperature");
         });
 
         OnModelCreatingPartial(modelBuilder);

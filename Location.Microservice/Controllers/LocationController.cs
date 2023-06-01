@@ -25,7 +25,7 @@ namespace Location.Microservice.Controllers
         public IActionResult AddLocation([FromBody] Locations location)
         {
             _locationService.AddLocation(location);
-            return Ok("Kafsha u regjistru");
+            return Ok("Lokacioni u regjistru");
         }
         //public async Task<ActionResult<List<Location>>> AddLocation(Location location)
         //{
@@ -46,23 +46,23 @@ namespace Location.Microservice.Controllers
         [HttpGet("get-by-id /{id}")]
         public IActionResult GetPetById(int id)
         {
-            var _pet = _locationService.LocationById(id);
-            return Ok(_pet);
+            var _location = _locationService.LocationById(id);
+            return Ok(_location);
         }
 
         [HttpPut("update-by-id/{Id}")]
-        public IActionResult UpdatePet(int Id, [FromBody] LocationVm location)
+        public IActionResult UpdateLocation(int Id, [FromBody] LocationVm location)
         {
-            var updatedPet = _locationService.UpdateLocation(Id, location);
-            return Ok(updatedPet);
+            var updatedLocation = _locationService.UpdateLocation(Id, location);
+            return Ok(updatedLocation);
         }
 
 
         [HttpDelete("delete-location/{Id}")]
-        public IActionResult DeletePet(int Id)
+        public IActionResult DeleteLocation(int Id)
         {
             _locationService.DeleteLocation(Id);
-            return Ok("Kafsha eshte fshrire");
+            return Ok("Lokacioni eshte fshrire");
         }
     }
 }

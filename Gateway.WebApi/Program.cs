@@ -2,6 +2,7 @@ global using Gateway.WebApi.Data;
 global using Microsoft.EntityFrameworkCore;
 using FluentAssertions.Common;
 using Gateway.WebApi.Data.Entieties;
+using Gateway.WebApi.Repository.Role;
 using Gateway.WebApi.Repository.User;
 using Microsoft.AspNetCore.Identity;
 using Ocelot.Values;
@@ -23,6 +24,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
   .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
 builder.Services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
