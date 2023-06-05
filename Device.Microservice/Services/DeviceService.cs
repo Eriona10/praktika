@@ -2,6 +2,7 @@
 using Device.Microservice.Interfaces;
 using Device.Microservice.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Device.Microservice.Services
 {
@@ -39,6 +40,11 @@ namespace Device.Microservice.Services
             // Make use of deviceRepository and petRepository as needed
 
             return new OkResult();
+        }
+
+        public async Task<List<DeviceModel>> GetDevices()
+        {
+            return await _context.Devices.ToListAsync();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Device.Microservice.Interfaces;
 using Device.Microservice.Models;
+using Device.Microservice.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Device.Microservice.Controllers
@@ -35,5 +36,15 @@ namespace Device.Microservice.Controllers
             var result = await deviceService.DeleteDevice(petId);
             return result;
         }
+
+
+        // GET: api/devices
+        [HttpGet]
+        public async Task<ActionResult<List<DeviceModel>>> GetDevices()
+        {
+            var devices = await deviceService.GetDevices();
+            return Ok(devices);
+        }
+
     }
 }
