@@ -8,8 +8,10 @@ namespace Pet.Microservice.Interfaces
 
         public PetModel PetById(int Id);
         public List<PetModel> GetAll();
-        public void AddPet(PetVM pet);
+        public void AddPet(PetModel pet);
         public void DeletePet(int Id);
         public PetModel UpdatePet(int Id, PetVM pet);
-           }
+        void SaveChanges();
+        //void AddPet(PetModel petModel);
+    }
 }

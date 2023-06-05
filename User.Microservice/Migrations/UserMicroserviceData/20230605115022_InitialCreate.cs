@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace User.Microservice.Migrations
+namespace User.Microservice.Migrations.UserMicroserviceData
 {
     /// <inheritdoc />
-    public partial class Pets : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

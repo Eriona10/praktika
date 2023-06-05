@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Pet.Microservice.Data;
 using Pet.Microservice.Interfaces;
+using Pet.Microservice.Models;
 using Pet.Microservice.ViewModels;
 
 namespace Pet.Microservice.Controllers
 {
-    public class PetController : Controller
+    [ApiController]
+    [Route("api/pets")]
+    public class PetController : ControllerBase
     {
         private readonly PetDbContext _context;
         private readonly IPetService _petService;
-
 
         public PetController(PetDbContext context, IPetService petService)
         {
@@ -16,41 +19,90 @@ namespace Pet.Microservice.Controllers
             _petService = petService;
         }
 
+
         [HttpPost("add-pet")]
-        public IActionResult AddPet([FromBody] PetVM pet)
+        [ProducesResponseType(typeof(AddPetResponse), 200)]
+        public IActionResult AddPet([FromForm] PetVM pet, IFormFile file)
         {
-            _petService.AddPet(pet);
-            return Ok();
+            // Validate the pet data and perform necessary checks
+
+            // Create a new instance of the PetModel and populate its properties
+            var petModel = new PetModel
+            {
+                // Assign properties from the PetVM object
+                // ...
+
+                // Set the pet image properties
+                ImageName = file.FileName,
+                ImageType = file.ContentType
+            };
+
+            // Save the pet data to the database using the PetService
+            _petService.AddPet(petModel);
+
+            // Upload the image file
+            string folderPath = @"C:\Users\NB\Desktop\lab2Images";
+            string imageName = file.FileName;
+            string imagePath = Path.Combine(folderPath, imageName);
+
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            var response = new AddPetResponse { Message = "Pet added successfully" };
+            return Ok(response);
         }
+
+
         [HttpGet]
-        public IActionResult GetAllPets()
+        [ProducesResponseType(typeof(List<PetModel>), 200)]
+        public IActionResult GetAll()
         {
-            var pets= _petService.GetAll();
+            var pets = _petService.GetAll();
             return Ok(pets);
-
         }
 
-
-        [HttpGet("get-by-id /{id}")]
+        [HttpGet("get-by-id/{id}")]
+        [ProducesResponseType(typeof(PetModel), 200)]
         public IActionResult GetPetById(int id)
         {
-            var _pet = _petService.PetById(id);
-            return Ok(_pet);
+            var pet = _petService.PetById(id);
+            return Ok(pet);
         }
 
         [HttpPut("update-by-id/{Id}")]
+        [ProducesResponseType(typeof(UpdatePetResponse), 200)]
         public IActionResult UpdatePet(int Id, [FromBody] PetVM pet)
         {
             var updatedPet = _petService.UpdatePet(Id, pet);
-            return Ok(updatedPet);
+            var response = new UpdatePetResponse { Message = "Pet updated successfully", UpdatedPet = updatedPet };
+            return Ok(response);
         }
 
-
         [HttpDelete("delete-pet/{Id}")]
+        [ProducesResponseType(typeof(DeletePetResponse), 200)]
         public IActionResult DeletePet(int Id)
         {
             _petService.DeletePet(Id);
-            return Ok();
+            var response = new DeletePetResponse { Message = "Pet deleted successfully" };
+            return Ok(response);
         }
     }
+}
+
+public class AddPetResponse
+{
+    public string Message { get; set; }
+}
+
+public class UpdatePetResponse
+{
+    public string Message { get; set; }
+    public PetModel UpdatedPet { get; set; }
+}
+
+public class DeletePetResponse
+{
+    public string Message { get; set; }
 }
