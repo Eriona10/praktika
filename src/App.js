@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import AddPet from './AddPet';
+import PetProfile from './PetProfile';
 
 function App() {
+  // Assuming you have the pet data
+  const pet = {
+    name: 'Max',
+    breed: 'Labrador Retriever',
+    sex: 'Male',
+    birthday: 'June 1, 2018',
+    height: '60 cm',
+    weight: '30 kg',
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Add Pet</h1>
+      <AddPet />
+
+      <h1>Pet Profile</h1>
+      <PetProfile pet={pet} />
     </div>
   );
 }
