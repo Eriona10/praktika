@@ -1,0 +1,8 @@
+﻿@if (User.IsInRole("Admin"))
+{
+    ViewData["Title"] = "Admin Page";
+}
+else
+{
+    ViewData["Title"] = "User Page";
+}

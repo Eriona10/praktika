@@ -1,0 +1,173 @@
+﻿@{
+    var user = (UserModel)ViewData["User"];
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - </title>
+    @RenderSection("Styles", false)
+
+    <!-- App css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/simplebar.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/huebee/huebee.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/timepicker/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <!-- Sweet Alert -->
+    <link href="~/lib/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/animate/animate.css" rel="stylesheet" type="text/css">
+    <!-- DataTables -->
+    <link href="~/lib/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/datatables/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="~/lib/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="dark-sidenav">
+    @if (User.IsInRole("Admin"))
+            {
+        @await Component.InvokeAsync("Menu")
+        ;
+        <div class="page-wrapper">
+            <!-- Top Bar Start -->
+        <div class="topbar">
+            <!-- Navbar -->
+            <nav class="navbar-custom">
+                <ul class="list-unstyled topbar-nav float-end mb-0">
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <span class="ms-1 nav-user-name hidden-sm"></span>
+                                <span class="ms-1 nav-user-name hidden-sm">@user.FirstName @user.LastName</span>
+                            <img src="~/images/users/user-5.jpg" alt="profile-user" class="rounded-circle thumb-xs" />
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#"><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
+                            <a class="dropdown-item" href="#"><i data-feather="settings" class="align-self-center icon-xs icon-dual me-1"></i> Settings</a>
+                            <div class="dropdown-divider mb-0"></div>
+
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index","Home")" method="post">
+                                <button type="submit" class="dropdown-item"><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i>Logout</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul><!--end topbar-nav-->
+
+                <ul class="list-unstyled topbar-nav mb-0">
+                    <li>
+                        <button class="nav-link button-menu-mobile">
+                            <i data-feather="menu" class="align-self-center topbar-icon"></i>
+                        </button>
+                    </li>
+                    <li class="creat-btn">
+                        <div class="nav-link">
+                            <a class=" btn btn-sm btn-soft-primary" href="#" role="button"><i class="fas fa-plus me-2"></i>New Pet</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end navbar-->
+        </div>
+        <!-- Top Bar End -->
+     
+            @RenderBody()
+
+        </div>
+    }
+    else
+    {
+         <div class="topbar">
+                    <!-- Navbar -->
+                    <nav class="navbar-custom">
+                        <ul class="list-unstyled topbar-nav float-end mb-0">
+                            
+                            @*  <li class="nav-link">
+                        <a class="nav-link text-darl" asp-controller="Authorization" asp-action="Index">Role </a>
+                        </li>
+                        <li class="nav-link">
+                        <a class="nav-link text-darl" asp-controller="Pet" asp-action="Index">Pet </a>
+                        </li>*@
+                           
+
+                            <li class="dropdown">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                    <span class="ms-1 nav-user-name hidden-sm"></span>
+                            <span class="ms-1 nav-user-name hidden-sm">@user.FirstName @user.LastName</span>
+                                    <img src="~/images/users/user-5.jpg" alt="profile-user" class="rounded-circle thumb-xs" />
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#"><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
+                                    <a class="dropdown-item" href="#"><i data-feather="settings" class="align-self-center icon-xs icon-dual me-1"></i> Settings</a>
+                                    <div class="dropdown-divider mb-0"></div>
+
+                                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index","Home")" method="post">
+                                        <button type="submit" class="dropdown-item"><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i>Logout</button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul><!--end topbar-nav-->
+
+                        <ul class="list-unstyled topbar-nav mb-0">
+                            <li class="creat-btn">
+                                <div class="nav-link">
+                                    <a class=" btn btn-sm btn-soft-primary" href="#" role="button"><i class="fas fa-plus me-2"></i>New Task</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+            <!-- end navbar--> <h4 class="page-title">@ViewData["Title"]</h4>
+                </div>
+               
+                @RenderBody()
+            }
+
+
+    <!-- jQuery  -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/metismenu.min.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/feather.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+    <script src="~/js/moment.js"></script>
+    <script src="~/lib/daterangepicker/daterangepicker.js"></script>
+    <script src="~/lib/idle-timer/idle-timer.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js" asp-append-version="true"></script>
+    <script src="~/lib/select2/select2.min.js"></script>
+    <script src="~/lib/huebee/huebee.pkgd.min.js"></script>
+    <script src="~/lib/timepicker/bootstrap-material-datetimepicker.js"></script>
+    <script src="~/lib/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+    <script src="~/lib/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+
+    <!-- Sweet-Alert  -->
+    <script src="~/lib/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="~/js/pages/jquery.sweet-alert.init.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Responsive examples -->
+    <script src="~/lib/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/lib/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/js/pages/jquery.datatable.init.js"></script>
+    <script src="~/js/pages/jquery.forms-advanced.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+    <script src="~/js/app.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
