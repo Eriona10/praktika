@@ -52,20 +52,25 @@ namespace Gateway.WebApi.Controller
                 return BadRequest(result.Errors);
             }
         }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] Login model)
         {
-            var result = await _userRepository.LoginAsync(model);
-
-            if (string.IsNullOrEmpty(result))
+            if (ModelState.IsValid)
             {
-                return Ok("Login");
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
 
-            return Ok(result);
+            return BadRequest(ModelState);
         }
-
         [HttpGet]
         public async Task<ActionResult<List<AspNetUsers>>> Get()
         {

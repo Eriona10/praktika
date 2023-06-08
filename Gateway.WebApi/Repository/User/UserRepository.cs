@@ -35,21 +35,38 @@ namespace Gateway.WebApi.Repository.User
         }
         public async Task<IdentityResult> SignUpAsync(Register model)
         {
-           
+
             var user = new ApplicationUser()
             {
+                Id = Guid.NewGuid().ToString(),
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Email,
-                RoleId = model.RoleId
+                RoleId = model.RoleId,
+                IsRoleConfirmed = true,
+                EmailConfirmed = true
             };
-            return await _userManager.CreateAsync(user, model.Password);
+            var userCreate = await _userManager.CreateAsync(user, model.Password);
 
-        
+            List<string> roleNames = _context.AspNetRoles
+               .Where(t => t.Id == "89da4f13-e025-44f0-8340-282354813d37")
+               .Select(t => t.Name)
+                 .ToList();
+
+            if (userCreate.Succeeded)
+            {
+                string roleName = roleNames.FirstOrDefault(); // Get the first role name from the list
+                if (roleName != null)
+                {
+                    var resultRole = await _userManager.AddToRoleAsync(user, roleName);
+                    // Handle the result as needed
+                }
+            }
+            return userCreate;
         }
 
-        
+
         public Task SaveChanges()
         {
             throw new NotImplementedException();
@@ -61,7 +78,7 @@ namespace Gateway.WebApi.Repository.User
 
             if (!result.Succeeded)
             {
-                
+
             }
             return null;
         }
