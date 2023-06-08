@@ -44,7 +44,7 @@ namespace Location.Microservice.Controllers
 
 
         [HttpGet("get-by-id /{id}")]
-        public IActionResult GetPetById(int id)
+        public IActionResult GetLocationById(int id)
         {
             var _location = _locationService.LocationById(id);
             return Ok(_location);

@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Pet.Microservice.Data.Entieties;
 
 namespace Pet.Microservice.Models
 {
 
     public class PetModel
     {
-        public int id { get; set; }
+       public int id { get; set; }
         public string name { get; set; }
         public int age { get; set; }
         public string gender { get; set; }
@@ -18,12 +19,13 @@ namespace Pet.Microservice.Models
         public string ImagePath { get; internal set; }
         public string ImageName { get; internal set; }
         public string ImageType { get; internal set; }
+        public string UserId { get; set; }
 
         //  public ICollection<PetUpload> PetUpload { get; set; }
 
         //  public string UserId { get; set; } // Foreign key for user association
         //public virtual AspNetUsers User { get; set; } // Navigation property
-
+        public virtual AspNetUsers AspNetUsers { get; set; } = null!;
     }
 }
 

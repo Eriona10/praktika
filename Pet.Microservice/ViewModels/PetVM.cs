@@ -10,5 +10,6 @@
         public double weight { get; set; }
         public double height { get; set; }
         public string animalType { get; set; }
+        public string UserId { get; set;}
     }
 }

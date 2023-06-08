@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Ocelot.Values;
 using Pet.Microservice.Data;
+using Pet.Microservice.Data.Entieties;
 using Pet.Microservice.Interfaces;
-using Pet.Microservice.Services;
+/*using Pet.Microservice.Services;*/
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<PetDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<PetTrackerContext>(options =>
+   options.UseSqlServer(connectionString));
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
@@ -21,7 +26,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add your pet service and repository to the container
-builder.Services.AddScoped<IPetService, PetService>();
+/*builder.Services.AddScoped<IPetService, PetService>();*/
 
 var app = builder.Build();
 

@@ -42,6 +42,10 @@ namespace Pet.Microservice.Migrations.PetMicroserviceData
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("age")
                         .HasColumnType("int");
 
