@@ -9,5 +9,9 @@ namespace Device.Microservice.Interfaces
         Task<IActionResult> UpdateDevice(DeviceRequest request, int petId);
         Task<IActionResult> DeleteDevice(int petId);
         Task<List<DeviceModel>> GetDevices();
-    }
+
+        //Task<IActionResult> DeleteDevice(int petId);r
+        //Task<List<DeviceModel>> GetDevices();r
+    
+}
 }

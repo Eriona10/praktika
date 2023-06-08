@@ -5,6 +5,13 @@ import { faDog } from '@fortawesome/free-solid-svg-icons/faDog'; // Importing th
 import dogShadowImage from './vecteezy_shadow-cat-and-dog_.jpg'; 
 import { useNavigate } from 'react-router-dom';
 
+// ReactDOM.render(
+//   <Router>
+//     <App />
+//   </Router>,
+//   document.getElementById('root')
+// );
+
 
 function AddPet() {
   const [name, setName] = useState('');

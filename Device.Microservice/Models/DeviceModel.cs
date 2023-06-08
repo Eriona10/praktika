@@ -20,10 +20,16 @@ namespace Device.Microservice.Models
         public string Model { get; set; }
         public string Contact { get; set; }
         public string Category { get; set; }
+       
 
-     //   public List<long> GeofenceIds { get; set; }
+        //   public List<long> GeofenceIds { get; set; }
         // public Attributes Attributes { get; set; } // Uncomment this line if you have an "Attributes" class.
 
         // Add any additional properties or methods as needed.
+        
+        
+        //public string model { get; set; }
+        //public string contact { get; set; }
+        //public string category { get; set; }
     }
 }
