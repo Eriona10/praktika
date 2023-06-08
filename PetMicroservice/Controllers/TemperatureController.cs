@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PetMicroservice.Data.Entieties;
+using PetMicroservice.Interfaces;
 using PetMicroservice.ViewModels;
 
 namespace PetMicroservice.Controllers
@@ -12,16 +14,16 @@ namespace PetMicroservice.Controllers
         private readonly ITemperatureServices _temperatureService;
 
 
-        public TemperatureController(PetTrackerContext context, ITemperatureServices temperatureService
+        public TemperatureController(PetTrackerContext context, ITemperatureServices temperatureService)
         {
             _context = context;
-            _temperatureService = temperatureService =
+            _temperatureService = temperatureService;
         }
 
-        [HttpPost("add-temperature")
+        [HttpPost("add-temperature")]
         public IActionResult AddTemperature([FromBody] Temperature temperature)
         {
-            _temperatureService = .AddTemperature(temperature);
+            _temperatureService.AddTemperature(temperature);
             return Ok("Temperature  u regjistru");
         }
         //public async Task<ActionResult<List<Temperature >>> AddTemperature (Temperature  temperature)
